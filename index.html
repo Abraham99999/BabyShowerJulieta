@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baby Shower Julieta</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="grid">
+<div class="card hero">
+<h1>🧸 Julieta 🌙</h1>
+<p>Has recibido una invitación especial</p>
+</div>
+
+<div class="card">
+<h2>📅 Baby Shower</h2>
+<p>28 Junio 2026</p>
+<p>16:00 HRS</p>
+<div id="countdown"></div>
+</div>
+
+<div class="card">
+<h2>👗 Código de vestimenta</h2>
+<p>Casual • Colores claros y pastel</p>
+</div>
+
+<div class="card">
+<h2>📋 Itinerario</h2>
+<p>16:00 Bienvenida</p>
+<p>16:30 Juegos y dinámicas</p>
+<p>17:30 Comida</p>
+<p>18:30 Regalos</p>
+</div>
+
+<div class="card">
+<h2>📍 Ubicación</h2>
+<p>Salón Monte Luna</p>
+<a class="btn" href="https://maps.app.goo.gl/pVr1D3vitxb3Q4CZA?g_st=ac">Google Maps</a>
+</div>
+
+<div class="card">
+<h2>✅ Confirmar asistencia</h2>
+<a class="btn" href="https://wa.me/525583831118">WhatsApp</a>
+</div>
+
+<div class="card wide">
+<h2>💕</h2>
+<p>Antes de conocerte ya te amamos con todo nuestro corazón.</p>
+<p><strong>Julieta</strong></p>
+<p>Con cariño, Abraham y Katherine</p>
+</div>
+</div>
+<script>
+const t=new Date('2026-06-28T16:00:00').getTime();
+setInterval(()=>{
+const d=t-Date.now();
+const e=document.getElementById('countdown');
+if(!e)return;
+e.innerHTML=Math.max(0,Math.floor(d/86400000))+' días';
+},1000);
+</script>
+</body>
+</html>
