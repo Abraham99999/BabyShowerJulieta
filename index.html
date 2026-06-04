@@ -1,104 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invitación Especial</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Invitación Especial</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(-45deg, #ff4d6d, #4d79ff, #7bffb2, #ffd24d);
-      background-size: 400% 400%;
-      animation: bg 10s ease infinite;
-      color: white;
-    }
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(-45deg,#ff4d6d,#4d79ff,#7bffb2,#ffd24d);
+  background-size:400% 400%;
+  animation:bg 10s ease infinite;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
 
-    @keyframes bg {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-    .card {
-      background: rgba(0,0,0,0.6);
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      max-width: 400px;
-      width: 90%;
-      animation: float 3s ease-in-out infinite;
-    }
+.card{
+  background:rgba(0,0,0,.65);
+  padding:25px;
+  border-radius:20px;
+  max-width:450px;
+  width:92%;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  animation:float 3s ease-in-out infinite;
+}
 
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
 
-    h1 {
-      margin-bottom: 10px;
-      font-size: 28px;
-    }
+h1{margin:0;font-size:28px}
+p{opacity:.9}
 
-    p {
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
+.timer{
+  font-size:22px;
+  margin:15px 0;
+  font-weight:bold;
+}
 
-    .timer {
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+.info{
+  background:rgba(255,255,255,.1);
+  padding:10px;
+  border-radius:10px;
+  margin:10px 0;
+  font-size:14px;
+}
 
-    .small {
-      margin-top: 15px;
-      font-size: 12px;
-      opacity: 0.7;
-    }
-  </style>
+button{
+  margin-top:15px;
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:white;
+}
+
+#confetti{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>🎉 Invitación Especial 🎉</h1>
-    <p>Te esperamos en un evento increíble</p>
+<canvas id="confetti"></canvas>
 
-    <div class="timer" id="countdown">Cargando...</div>
+<div class="card">
+  <h1>🎉 Invitación Especial 🎉</h1>
+  <p>Estás invitado a un evento único</p>
 
-    <div class="small">28 Junio 2026 - 16:00 hrs</div>
-  </div>
+  <div class="timer" id="countdown">Cargando...</div>
 
-  <script>
-    const targetDate = new Date("2026-06-28T16:00:00").getTime();
+  <div class="info">📅 28 Junio 2026 - 16:00 hrs</div>
+  <div class="info">📍 Lugar: Evento privado</div>
 
-    const countdown = document.getElementById("countdown");
+  <button onclick="rsvp()">Confirmar asistencia</button>
+</div>
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
+<script>
+const targetDate = new Date("2026-06-28T16:00:00").getTime();
+const countdown = document.getElementById("countdown");
 
-      if (diff <= 0) {
-        countdown.innerHTML = "¡Es hoy! 🎊";
-        return;
-      }
+setInterval(()=>{
+  const now = new Date().getTime();
+  const diff = targetDate - now;
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  if(diff <= 0){
+    countdown.innerHTML = "🎊 ¡ES HOY! 🎊";
+    return;
+  }
 
-      countdown.innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-  </script>
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m = Math.floor((diff%(1000*60*60))/(1000*60));
+  const s = Math.floor((diff%(1000*60))/1000);
+
+  countdown.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+},1000);
+
+// RSVP simple
+function rsvp(){
+  alert("¡Asistencia confirmada! 🎉");
+  launchConfetti();
+}
+
+// Confeti básico
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
+for(let i=0;i<120;i++){
+  pieces.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*6+2,
+    d: Math.random()*5
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "white";
+
+  pieces.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+    ctx.fill();
+  });
+
+  update();
+}
+
+function update(){
+  pieces.forEach(p=>{
+    p.y += p.d;
+    if(p.y > canvas.height){
+      p.y = 0;
+      p.x = Math.random()*canvas.width;
+    }
+  });
+}
+
+function launchConfetti(){
+  setInterval(draw,20);
+}
+</script>
 
 </body>
 </html>
